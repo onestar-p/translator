@@ -49,14 +49,16 @@ type Client struct {
 // 返回翻译客户端
 // key 翻译API秘钥
 // content 翻译内容
+// target 目标语言
 // opts 配置项 可查看option.go
-func NewTranslator(key string, content []SourceText, opts ...Option) *Client {
+func NewTranslator(key, target string, content []SourceText, opts ...Option) *Client {
 	c := &Client{
 		Key:              key,
 		Contents:         content,
 		ContenTotal:      len(content),
 		Format:           DefaultFormat,
 		MaxTransTextNums: DefaultMaxTransTextNums,
+		Target:           TargetLanguage(target),
 	}
 
 	// 设置超时时间

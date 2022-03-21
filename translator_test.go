@@ -9,10 +9,11 @@ func TestTranslate(t *testing.T) {
 	c := context.Background()
 
 	cases := []struct {
-		Name string
-		Text []SourceText
-		Key  string
-		Func func(key string, text []SourceText) *Client
+		Name   string
+		Text   []SourceText
+		Key    string
+		Target string
+		Func   func(key, target string, text []SourceText) *Client
 	}{
 		{
 			Name: "Bing_Translate",
@@ -20,9 +21,10 @@ func TestTranslate(t *testing.T) {
 				"必应翻译，用户反馈",
 				"必应翻译，用户反馈2",
 			},
-			Key: "key",
-			Func: func(key string, text []SourceText) *Client {
-				return NewTranslator(key, text, WithTarget("en")).BingTranslate()
+			Key:    "key",
+			Target: "en",
+			Func: func(key, target string, text []SourceText) *Client {
+				return NewTranslator(key, target, text).BingTranslate()
 			},
 		},
 		{
@@ -31,16 +33,17 @@ func TestTranslate(t *testing.T) {
 				"谷歌翻译，用户反馈",
 				"谷歌翻译，用户反馈2",
 			},
-			Key: "key",
-			Func: func(key string, text []SourceText) *Client {
-				return NewTranslator(key, text, WithTarget("en")).GoogleTranslate()
+			Key:    "key",
+			Target: "fr",
+			Func: func(key, targe string, text []SourceText) *Client {
+				return NewTranslator(key, targe, text).GoogleTranslate()
 			},
 		},
 	}
 
 	for _, cc := range cases {
 		t.Run(cc.Name, func(t *testing.T) {
-			_, err := cc.Func(cc.Key, cc.Text).Do(c)
+			_, err := cc.Func(cc.Key, cc.Target, cc.Text).Do(c)
 			if err != nil {
 				t.Errorf("cannot translate err:%s", err)
 			}

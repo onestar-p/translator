@@ -3,13 +3,6 @@ package translator
 // 翻译客户端配置
 type Option func(c *Client)
 
-// 设置翻译目标语言
-func WithTarget(t TargetLanguage) Option {
-	return func(c *Client) {
-		c.Target = t
-	}
-}
-
 // 设置翻译源语言
 func WithScopes(s SourceLanguage) Option {
 	return func(c *Client) {
