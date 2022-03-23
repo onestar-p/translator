@@ -28,7 +28,7 @@ type SourceLanguage string // 源语言
 
 // 翻译结果
 type Result struct {
-	SourceText     SourceText     // 翻译原文本，与翻译结果不一定一致，需要测试
+	SourceText     SourceText     // 翻译原文本
 	Text           string         // 翻译结果
 	SourceLanguage SourceLanguage // 源语言
 	WordNums       uint32         // 翻译单词数
