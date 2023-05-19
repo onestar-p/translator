@@ -39,6 +39,24 @@ func TestTranslate(t *testing.T) {
 				return NewTranslator(key, targe, text).GoogleTranslate()
 			},
 		},
+		{
+			Name: "ALIMT_Translate",
+			Text: []SourceText{
+				"阿里机器翻译，用户反馈",
+				"阿里机器翻译，用户反馈222",
+			},
+			Key:    "accessKeyID/accessKeySecret", // accessKeyID/accessKeySecret
+			Target: "en",
+			Func: func(key, targe string, text []SourceText) *Client {
+
+				return NewTranslator(key, targe, text,
+					WithSource("zh-CN"),
+					WithScene("general"),
+					WithApiType("translate_standard"),
+					WithMaxTransTextNums(50),
+				).ALIMTTranslate()
+			},
+		},
 	}
 
 	for _, cc := range cases {

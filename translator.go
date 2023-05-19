@@ -32,6 +32,7 @@ type Result struct {
 	Text           string         // 翻译结果
 	SourceLanguage SourceLanguage // 源语言
 	WordNums       uint32         // 翻译单词数
+	ErrMsg         string
 }
 
 type Client struct {
@@ -44,6 +45,8 @@ type Client struct {
 	MaxTransTextNums uint           // 每次翻译最多翻译量
 	Request          *Request
 	translate        TranslatorInterfaced
+	Scene            string // 场景
+	ApiType          string // 版本类型
 }
 
 // 返回翻译客户端
@@ -73,7 +76,8 @@ func NewTranslator(key, target string, content []SourceText, opts ...Option) *Cl
 }
 
 // run translate
-//  e.g. translate.GoogleTranslate().Do(ctx)
+//
+//	e.g. translate.GoogleTranslate().Do(ctx)
 func (c *Client) Do(ctx context.Context) ([]*Result, error) {
 	if c.translate == nil {
 		return nil, fmt.Errorf("c.translate is nil. e.g. ")
@@ -154,5 +158,11 @@ func (c *Client) GoogleTranslate() *Client {
 // Bing翻译
 func (c *Client) BingTranslate() *Client {
 	c.translate = &BingTranslateService{Client: c}
+	return c
+}
+
+// alimt 翻译
+func (c *Client) ALIMTTranslate() *Client {
+	c.translate = &ALIMTTranslateService{Client: c}
 	return c
 }
