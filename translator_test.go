@@ -46,11 +46,11 @@ func TestTranslate(t *testing.T) {
 				"阿里机器翻译，用户反馈222",
 			},
 			Key:    "accessKeyID/accessKeySecret", // accessKeyID/accessKeySecret
-			Target: "en",
+			Target: "hant",
 			Func: func(key, targe string, text []SourceText) *Client {
 
 				return NewTranslator(key, targe, text,
-					WithSource("zh-CN"),
+					WithSource("hans"),
 					WithScene("general"),
 					WithApiType("translate_standard"),
 					WithMaxTransTextNums(50),

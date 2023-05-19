@@ -17,6 +17,15 @@ const (
 	Endpoint = "mt.aliyuncs.com"
 )
 
+var (
+	convertLanguageCode = map[string]string{
+		"zh-CN": "zh",
+		"zh-cn": "zh",
+		"hans":  "zh",
+		"hant":  "zh-tw",
+	}
+)
+
 // alimt 返回结构
 type ALIMTResponse struct {
 	Data  ALIMTResponseData `json:"data"`
@@ -84,8 +93,11 @@ func (gt *ALIMTTranslateService) Trans(c context.Context, contents []SourceText)
 		return nil, err
 	}
 
-	if gt.Client.Source == "zh-CN" || gt.Client.Source == "zh-cn" {
-		gt.Client.Source = "zh"
+	if code, ok := convertLanguageCode[string(gt.Client.Source)]; ok {
+		gt.Client.Source = SourceLanguage(code)
+	}
+	if code, ok := convertLanguageCode[string(gt.Client.Target)]; ok {
+		gt.Client.Target = TargetLanguage(code)
 	}
 
 	request := &alimt20181012.GetBatchTranslateRequest{
