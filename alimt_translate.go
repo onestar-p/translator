@@ -93,6 +93,11 @@ func (gt *ALIMTTranslateService) Trans(c context.Context, contents []SourceText)
 		return nil, err
 	}
 
+	// 如果没有源语言，则使用 auto 自动判断
+	if gt.Client.Source == "" {
+		gt.Client.Source = "auto"
+	}
+
 	if code, ok := convertLanguageCode[string(gt.Client.Source)]; ok {
 		gt.Client.Source = SourceLanguage(code)
 	}
