@@ -138,7 +138,9 @@ func (gt *ALIMTTranslateService) Trans(c context.Context, contents []SourceText)
 					wordNumsUint32, _ := strconv.Atoi(wordNumsStr)
 					tempResult.WordNums = uint32(wordNumsUint32)
 				} else {
-					tempResult.ErrMsg = trans["errorMsg"].(string)
+					tempResult.ErrMsg = trans["errorMsg"].(string) +
+						"(code: " + trans["code"].(string) +
+						" request id: " + *response.Body.RequestId + ")"
 				}
 				continue
 			}
