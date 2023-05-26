@@ -128,9 +128,18 @@ func (gt *ALIMTTranslateService) Trans(c context.Context, contents []SourceText)
 		var tempResult *Result
 		for _, trans := range response.Body.TranslatedList {
 			if trans["index"] == indexStr {
+
+				// 获取 alimt 返回的源语言
+				var sourceLanguage SourceLanguage
+				if language, ok := trans["detectedLanguage"]; ok {
+					sourceLanguage = SourceLanguage(language.(string))
+				} else {
+					sourceLanguage = gt.Client.Source
+				}
+
 				tempResult = &Result{
 					SourceText:     cont,
-					SourceLanguage: gt.Client.Source,
+					SourceLanguage: SourceLanguage(sourceLanguage),
 				}
 				if trans["code"] == "200" {
 					tempResult.Text = trans["translated"].(string)
