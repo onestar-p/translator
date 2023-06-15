@@ -19,12 +19,10 @@ const (
 
 var (
 	convertLanguageCode = map[string]string{
-		"zh-CN":   "zh",
-		"zh-cn":   "zh",
-		"zh-Hant": "zh",
-		"zh-Hans": "zh-tw",
-		"hans":    "zh",
-		"hant":    "zh-tw",
+		"zh-CN": "zh",
+		"zh-cn": "zh",
+		"hans":  "zh",
+		"hant":  "zh-tw",
 	}
 )
 
