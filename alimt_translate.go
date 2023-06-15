@@ -21,8 +21,8 @@ var (
 	convertLanguageCode = map[string]string{
 		"zh-CN":   "zh",
 		"zh-cn":   "zh",
-		"zh-Hant": "zh",
-		"zh-Hans": "zh-tw",
+		"zh-Hant": "zh-tw",
+		"zh-Hans": "zh",
 		"hans":    "zh",
 		"hant":    "zh-tw",
 	}
